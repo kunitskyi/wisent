@@ -1,3 +1,7 @@
+# Wisent Project
+module/*
+!module/.gitkeep
+
 # Visual Studio Code
 .vscode/*
 !.vscode/settings.json
