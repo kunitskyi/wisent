@@ -2,32 +2,32 @@
 
 ##
 #
-# Addon which, installing base packages [Docker Components, curl, git, openssl]
+# Base Bundle
 #
 #######
 
-function addon-verified-install-base {
-
-    addon-verified-install-docker
-
+function install-base-bundle {
+    
+    install-docker
+    
     sudo apt update
     sudo apt install curl git openssl
 }
 
-function addon-verified-install-docker {
-
+function install-docker {
+    
     for pkg in docker.io docker-doc docker-compose podman-docker containerd runc
-    do 
+    do
         sudo apt-get remove $pkg
     done
-
+    
     sudo apt-get update
     sudo apt-get install ca-certificates curl gnupg
-
+    
     if [ -f /etc/os-release ]
     then
         local DISTRIBUTION=$(grep -oP 'ID=\K\w+' /etc/os-release)
-
+        
         if [ "$DISTRIBUTION" == "kali" ]
         then
             printf '%s\n' "deb https://download.docker.com/linux/debian bullseye stable" | sudo tee /etc/apt/sources.list.d/docker-ce.list
@@ -39,13 +39,13 @@ function addon-verified-install-docker {
             sudo chmod a+r /etc/apt/keyrings/docker.gpg
             echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         else
-            throw_error 101 "This is another Linux distribution: $DISTRIBUTION"
+            throw-handy-error 101 "(install-docker) This is another Linux distribution: $DISTRIBUTION"
         fi
     else
-        throw_error 99 "Unable to determine the Linux distribution."
+        throw-handy-error 102 "(install-docker) Unable to determine the Linux distribution."
     fi
     sudo apt-get update
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     sudo groupadd docker && sudo usermod -aG docker $USER
-
+    
 }
