@@ -51,25 +51,6 @@ function edit-env-file {
     fi
 }
 
-function show-actions-list {
-    
-    if [ -z "$1" ]
-    then
-        throw-handy-error 1003 "(show-actions-list) Array of items isn't set!"
-    fi
-    
-    local ITEMS_ARRAY="$1"
-    local -n ITEMS_ARRAY_REF="$ITEMS_ARRAY"
-    local i=1
-    
-    echo -e "\033[1mSelect next action:\033[0m \033[1;2;3;32m(Enter action number)\033[0m"
-    
-    for ITEM in "${ITEMS_ARRAY_REF[@]}"
-    do
-        echo -e "$((i++))) - ${FUNCTION_DESCRIPTION[$ITEM]}"
-    done
-}
-
 function center-text {
     local TEXT="$1"
     local PATTERN=${2:-" "}
@@ -80,7 +61,7 @@ function center-text {
     
     if [ ${#PATTERN} -le 0 ]
     then
-        throw-handy-error 1004 "(center-text) Set wrong PATTERN!"
+        throw-handy-error 1002 "(center-text) Set wrong PATTERN!"
     fi
     
     for ((i = 0; i < PADDING_WIDTH / (${#PATTERN}*2) ; i++))

@@ -14,6 +14,7 @@ function CORE-INDEX {
     
     source $LOCAL_PWD/initialization.sh
     source $LOCAL_PWD/interface.sh
+    source $LOCAL_PWD/selector.sh
     
 }
 
