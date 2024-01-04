@@ -8,14 +8,14 @@
 
 function show-header { #TODO: replace text with vars& change text
     clear
-    center-text " WISENT-AG V0.5.1e from 9/1/2023 " ".\`" "3;36"
-    echo -e "WORKING MODULE: \033[1;32m| ${GLOBAL_CURRENT_MODULE} |\033[0m"
+    center-text " WISENT V0.7-12/26/2023 " ".\`" "3;36"
+    echo -e "\033[2mWORKING MODULE:\033[0m \033[1;32m| ${GLOBAL_CURRENT_MODULE} |\033[0m"
 }
 
 function wip {
     echo -e "\033[1;33mFunction in development...\033[0m"
     confirm-next-actions
-    main_menu
+    module-entrypoint
 }
 
 function confirm-next-actions { #mb, change to confirm-next-step
@@ -24,7 +24,7 @@ function confirm-next-actions { #mb, change to confirm-next-step
     
     if [ "$USER_INPUT" = "stop" ]
     then
-        main_menu
+        module-entrypoint
     elif [ "$USER_INPUT" != "" ]
     then
         confirm-next-actions
@@ -65,34 +65,27 @@ function confirm-next-actions { #mb, change to confirm-next-step
 # }
 
 function custom-read { #TODO: replace vars
+    
+    local -n INPUT_VAR_REFERENCE="$1"
+    
     echo -e "\033[3m(For \033[1mexit\033[0m\033[3m, just type so...)\033[0m"
     echo -en "\033[1m[\033[0m\033[1;32m$GLOBAL_CURRENT_ENVIRONMENT\033[0m\033[1m]\033[0m "
-    read -r "$1"
+    read -r INPUT_VAR_REFERENCE
     
-    if [ "${!1}" = "exit" ] || [ "${!1}" = "q" ]
+    if [ "${INPUT_VAR_REFERENCE}" = "exit" ] || [ "${INPUT_VAR_REFERENCE}" = "q" ]
     then
         echo -e "\033[1;36mScript made by Kunitskyi Vladyslav\033[0m"
         echo -e "\033[1;36mExiting...\033[0m"
         exit 1
-        #!!!SEALED
-        #//  Shortcut access only if module and env var set correct
-        # elif [ "${!1}" = "menu" ] || [ "${!1}" = "main" ] || [ "${!1}" = "m" ]
-        # then
-        #     main_menu
-        # elif [ "${!1}" = "project_control" ] || [ "${!1}" = "pc" ]
-        # then
-        #     project_action_selector
-        # elif [ "${!1}" = "docker" ] || [ "${!1}" = "d" ]
-        # then
-        #     docker_actions_selector
-        # elif [ "${!1}" = "container" ] || [ "${!1}" = "c" ]
-        # then
-        #     container_selector
-        # elif [ "${!1}" = "backups" ] || [ "${!1}" = "bu" ]
-        # then
-        #     backups_action_selector
-        # elif [ "${!1}" = "git" ]
-        # then
-        #     git_action_selector
+    elif check-value-in-array "${GLOBAL_CURRENT_ENVIRONMENT}" "${GLOBAL_ENVIRONMENTS[@]}"
+    then
+        if check-value-in-array "${INPUT_VAR_REFERENCE}" "${!GLOBAL_SHORTCUTS[@]}"
+        then
+
+            read -r -a SELECTOR_LOGIC_ARRAY_PARAMS <<< "${GLOBAL_SHORTCUTS[${INPUT_VAR_REFERENCE}]}"
+
+            selector-logic "${SELECTOR_LOGIC_ARRAY_PARAMS[0]}" "${SELECTOR_LOGIC_ARRAY_PARAMS[1]}"
+        
+        fi
     fi
 }
