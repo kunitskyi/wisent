@@ -30,39 +30,6 @@ function confirm-next-actions { #mb, change to confirm-next-step
         confirm-next-actions
     fi
 }
-#!!!SEALED
-# function go-to { # @- meant stepper instead od action
-#     if [ "$1" = "@skip" ]
-#     then
-#         echo -e "\033[3;34mConfirmation Skipping...\033[0m"
-#     elif [ "$1" = "@next" ]
-#     then
-#         confirm_next_actions
-#     elif [ "$1" = "@project" ]
-#     then
-#         confirm_next_actions
-#         project_action_selector
-#     elif [ "$1" = "@container" ]
-#     then
-#         confirm_next_actions
-#         container_selector
-#     elif [ "$1" = "@container_action" ]
-#     then
-#         confirm_next_actions
-#         container_action_selector "" $2
-#     elif [ "$1" = "@docker" ]
-#     then
-#         confirm_next_actions
-#         docker_actions_selector
-#     elif [ "$1" = "@main" ]
-#     then
-#         confirm_next_actions
-#         main_action_selector
-#     else
-#         confirm_next_actions
-#         main_action_selector
-#     fi
-# }
 
 function custom-read { #TODO: replace vars
     
