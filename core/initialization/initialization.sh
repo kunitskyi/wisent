@@ -41,7 +41,7 @@ function change-environment {
     
     local LOCAL_ENVIRONMENT=${1:-"NONE"}
     
-    folder-argument-logic GLOBAL_CURRENT_ENVIRONMENT $LOCAL_ENVIRONMENT GLOBAL_ENVIRONMENTS  "ENVIRONMENT" "./module/${GLOBAL_CURRENT_MODULE}/env" "^[a-z][a-z0-9_.-]*$"
+    folder-argument-logic GLOBAL_CURRENT_ENVIRONMENT $LOCAL_ENVIRONMENT GLOBAL_ENVIRONMENTS  "ENVIRONMENT" "./module/${GLOBAL_CURRENT_MODULE}/.env" "^[a-z][a-z0-9_.-]*$"
     
     module-reload
 }
