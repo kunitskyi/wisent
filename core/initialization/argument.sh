@@ -66,7 +66,7 @@ function generate-folder-argument-array {
     do
         FOLDER_NAME=$(basename "${ITEM}")
         
-        if [[ "${FOLDER_NAME}" =~ $ARGUMENT_PATTERN && "${FOLDER_NAME}" != "NONE" ]]
+        if [[ "${FOLDER_NAME}" =~ $ARGUMENT_PATTERN && "${FOLDER_NAME}" != "NONE" ]] # TODO: add regex rules check
         then
             REFERENCE_OF_GLOBAL_ARGUMENTS+=("${FOLDER_NAME}")
         fi
