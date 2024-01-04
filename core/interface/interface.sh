@@ -35,7 +35,7 @@ function custom-read { #TODO: replace vars
     
     local -n INPUT_VAR_REFERENCE="$1"
     
-    echo -e "\033[3m(For \033[1mexit\033[0m\033[3m, just type so...)\033[0m"
+    echo -e "\033[3m(For \033[1mexit\033[2m(q)\033[0m\033[3m, just type so...)\033[0m"
     echo -en "\033[1m[\033[0m\033[1;32m$GLOBAL_CURRENT_ENVIRONMENT\033[0m\033[1m]\033[0m "
     read -r INPUT_VAR_REFERENCE
     
