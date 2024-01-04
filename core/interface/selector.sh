@@ -43,3 +43,8 @@ function show-selector {
         echo -e "$((i++))) - ${SELECTOR_DESCRIPTION[$ITEM]}"
     done
 }
+
+function selector-description-parse {
+    # here adds tags shortcut hints etc.
+    wip
+}
