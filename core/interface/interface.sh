@@ -6,16 +6,16 @@
 #
 #######
 
-function show-header { #TODO: replace text with vars& change text
-    clear
-    center-text " WISENT V0.7-12/26/2023 " ".\`" "3;36"
-    echo -e "\033[2mWORKING MODULE:\033[0m \033[1;32m| ${GLOBAL_CURRENT_MODULE} |\033[0m"
-}
-
 function wip {
     echo -e "\033[1;33mFunction in development...\033[0m"
     confirm-next-actions
     module-entrypoint
+}
+
+function show-header { #TODO: replace text with vars& change text
+    clear
+    center-text " WISENT V0.7-12/26/2023 " ".\`" "3;36"
+    echo -e "\033[2mWORKING MODULE:\033[0m \033[1;32m| ${GLOBAL_CURRENT_MODULE} |\033[0m"
 }
 
 function confirm-next-actions { #mb, change to confirm-next-step
