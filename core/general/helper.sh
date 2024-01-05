@@ -72,7 +72,7 @@ function center-text {
     echo -e "\033[${STYLE}m${PADDING}${TEXT}${PADDING}\033[0m"
 }
 
-function copy-associative-array() {
+function copy-associative-array {
     declare -n SOURCE_ARRAY="$1"
     declare -n TARGET_ARRAY="$2"
     
