@@ -48,11 +48,7 @@ function custom-read { #TODO: replace vars
     then
         if check-value-in-array "${INPUT_VAR_REFERENCE}" "${!GLOBAL_SHORTCUTS[@]}"
         then
-
-            read -r -a SELECTOR_LOGIC_ARRAY_PARAMS <<< "${GLOBAL_SHORTCUTS[${INPUT_VAR_REFERENCE}]}"
-
-            selector-logic "${SELECTOR_LOGIC_ARRAY_PARAMS[0]}" "${SELECTOR_LOGIC_ARRAY_PARAMS[1]}"
-        
+            eval "${GLOBAL_SHORTCUTS[$INPUT_VAR_REFERENCE]}"
         fi
     fi
 }
