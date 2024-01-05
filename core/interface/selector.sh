@@ -51,6 +51,7 @@ function selector-description-parse {
     local ITEM="$2"
     local -n SELECTOR_DESCRIPTION="$3"
     local SELECTOR_TEXT="${SELECTOR_DESCRIPTION[$ITEM]}"
+    local CURRENT_SHORTCUT=""
 
     # Parse Adding Tags
     for TAG_TYPE in "${TAGS_ARRAY[@]}"
@@ -71,12 +72,16 @@ function selector-description-parse {
     # Parse Adding Shortcut
     for SHORTCUT in "${!GLOBAL_SHORTCUTS[@]}"
     do
-        if [[ "${GLOBAL_SHORTCUTS[$SHORTCUT]}" = "${ITEM}" ]]
+        if [[ "${GLOBAL_SHORTCUTS[$SHORTCUT]}" = "${ITEM}" && ( "${#CURRENT_SHORTCUT}" -eq 0 || "${#CURRENT_SHORTCUT}" -gt "${#SHORTCUT}" ) ]]
         then
-            SELECTOR_TEXT="\033[1;32m($SHORTCUT)\033[0m$SELECTOR_TEXT"
-            break
+            CURRENT_SHORTCUT="${SHORTCUT}"
         fi
     done
+
+    if [[ "${#CURRENT_SHORTCUT}" -gt 0 ]]
+    then
+        SELECTOR_TEXT="\033[1;32m($CURRENT_SHORTCUT)\033[0m$SELECTOR_TEXT"
+    fi
     
     echo -e "${INDEX} - ${SELECTOR_TEXT}\033[0m"
     
