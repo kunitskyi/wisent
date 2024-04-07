@@ -6,7 +6,7 @@
 #
 #######
 
-function panel-initialization {
+function ws:initialization {
     
     # TODO: check if all SCRIPT COMMANDS works -> throw-handy-error
     # TODO: check if BASE BUNDLE is installed -> try to install base_bundle.sh
@@ -14,11 +14,11 @@ function panel-initialization {
     local LOCAL_MODULE=${1:-"NONE"}
     local LOCAL_ENVIRONMENT=${2:-"NONE"}
     
-    change-module $LOCAL_MODULE $LOCAL_ENVIRONMENT
+    ws:change-module $LOCAL_MODULE $LOCAL_ENVIRONMENT
     
 }
 
-function change-module {
+function ws:change-module {
     
     # TODO: check if none modules installed -> install angavel.wisent -- show warnings
     # TODO: modules must be pattern *.wisent
@@ -27,26 +27,26 @@ function change-module {
     local LOCAL_MODULE=${1:-"NONE"}
     local LOCAL_ENVIRONMENT=${2:-"NONE"}
     
-    folder-argument-logic GLOBAL_CURRENT_MODULE $LOCAL_MODULE GLOBAL_MODULES "MODULE" "./module" "^[a-z][a-z0-9_.-]*$"
+    :folder-argument-logic GLOBAL_CURRENT_MODULE $LOCAL_MODULE GLOBAL_MODULES "MODULE" "./module" "^[a-z][a-z0-9_.-]*$"
     
     if [ "$GLOBAL_CURRENT_MODULE" != "$LOCAL_MODULE" ]
     then
         LOCAL_ENVIRONMENT="NONE"
     fi
     
-    change-environment $LOCAL_ENVIRONMENT
+    ws:change-environment $LOCAL_ENVIRONMENT
 }
 
-function change-environment {
+function ws:change-environment {
     
     local LOCAL_ENVIRONMENT=${1:-"NONE"}
     
-    folder-argument-logic GLOBAL_CURRENT_ENVIRONMENT $LOCAL_ENVIRONMENT GLOBAL_ENVIRONMENTS  "ENVIRONMENT" "./module/${GLOBAL_CURRENT_MODULE}/.env" "^[a-z][a-z0-9_.-]*$"
+    :folder-argument-logic GLOBAL_CURRENT_ENVIRONMENT $LOCAL_ENVIRONMENT GLOBAL_ENVIRONMENTS  "ENVIRONMENT" "./module/${GLOBAL_CURRENT_MODULE}/.env" "^[a-z][a-z0-9_.-]*$"
     
-    module-reload
+    ws:module-reload
 }
 
-function module-reload {
+function ws:module-reload {
     
     if [ "$GLOBAL_NEED_RESTART" == 1 ]
     then

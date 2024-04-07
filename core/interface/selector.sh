@@ -6,30 +6,30 @@
 #
 #######
 
-function selector-logic {
+function ws:selector-logic {
     
     local SELECTOR_ARRAY_NAME="$1"
     local SELECTOR_DESCRIPTION_NAME="$2"
     local -n SELECTOR_ARRAY_REFERENCE="${SELECTOR_ARRAY_NAME}"
     
-    show-header
-    show-selector $SELECTOR_ARRAY_NAME $SELECTOR_DESCRIPTION_NAME
-    custom-read USER_INPUT
+    @show-header
+    :show-selector $SELECTOR_ARRAY_NAME $SELECTOR_DESCRIPTION_NAME
+    @custom-read USER_INPUT
     
     if [[ -n "$USER_INPUT" ]] && [[ "$USER_INPUT" =~ ^[0-9]+$ ]] && (( USER_INPUT >= 1 )) && (( USER_INPUT <= ${#SELECTOR_ARRAY_REFERENCE[@]} ))
     then
         "${SELECTOR_ARRAY_REFERENCE[$((USER_INPUT - 1))]}"
     else
-        selector-logic $SELECTOR_ARRAY_NAME $SELECTOR_DESCRIPTION_NAME
+        ws:selector-logic $SELECTOR_ARRAY_NAME $SELECTOR_DESCRIPTION_NAME
     fi
     
 }
 
-function show-selector {
+function :show-selector {
     
     if [ -z "$$1" ] || [ -z "$$2" ]
     then
-        throw-handy-error 2101 "(show-selector) Array of items isn't set!"
+        @throw-error 2101 "(show-selector) Array of items isn't set!"
     fi
     
     local -n SELECTOR_ARRAY="$1"
@@ -40,12 +40,12 @@ function show-selector {
     
     for ITEM in "${SELECTOR_ARRAY[@]}"
     do
-        selector-description-parse $i $ITEM $SELECTOR_DESCRIPTION_NAME
+        :selector-description-parse $i $ITEM $SELECTOR_DESCRIPTION_NAME
         ((i++))
     done
 }
 
-function selector-description-parse {
+function :selector-description-parse {
     
     local INDEX="$1"
     local ITEM="$2"

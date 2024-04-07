@@ -6,20 +6,20 @@
 #
 #######
 
-function clean-lines {
+function @clean-lines {
     local QUANTITY="$1"
     tput cuu "$QUANTITY"
     tput ed
 }
 
-function throw-handy-error {
+function @throw-error {
     local CODE=$1
     local TEXT=$2
     echo -e "\033[1;31mError[$CODE]| $TEXT\033[0m"
     exit $CODE
 }
 
-function check-value-in-array {
+function @check-value-in-array {
     local VALUE="$1"
     shift
     local ARRAY=("$@")
@@ -33,10 +33,10 @@ function check-value-in-array {
     return 1
 }
 
-function edit-env-file {
+function @edit-env-file {
     if [ -z "$$1" ] || [ -z "$$2" ] || [ -z "$3" ]
     then
-        throw-handy-error 1001 "(edit-env-file) Usage: <env_file> <key> <value>"
+        @throw-error 1001 "(edit-env-file) Usage: <env_file> <key> <value>"
     fi
     
     local ENV_FILE="$1"
@@ -51,7 +51,7 @@ function edit-env-file {
     fi
 }
 
-function center-text {
+function @center-text {
     local TEXT="$1"
     local PATTERN=${2:-" "}
     local STYLE=${3:-"0"}
@@ -61,7 +61,7 @@ function center-text {
     
     if [ ${#PATTERN} -le 0 ]
     then
-        throw-handy-error 1002 "(center-text) Set wrong PATTERN!"
+        @throw-error 1002 "(center-text) Set wrong PATTERN!"
     fi
     
     for ((i = 0; i < PADDING_WIDTH / (${#PATTERN}*2) ; i++))
@@ -72,7 +72,7 @@ function center-text {
     echo -e "\033[${STYLE}m${PADDING}${TEXT}${PADDING}\033[0m"
 }
 
-function copy-associative-array {
+function @copy-associative-array {
     declare -n SOURCE_ARRAY="$1"
     declare -n TARGET_ARRAY="$2"
     

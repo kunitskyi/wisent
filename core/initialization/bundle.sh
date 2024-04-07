@@ -6,15 +6,15 @@
 #
 #######
 
-function install-base-bundle {
+function bundle:install {
     
-    install-docker
+    bundle:install-docker
     
     sudo apt update
     sudo apt install curl git openssl
 }
 
-function install-docker {
+function bundle:install-docker {
     
     for pkg in docker.io docker-doc docker-compose podman-docker containerd runc
     do
@@ -39,10 +39,10 @@ function install-docker {
             sudo chmod a+r /etc/apt/keyrings/docker.gpg
             echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         else
-            throw-handy-error 101 "(install-docker) This is another Linux distribution: $DISTRIBUTION"
+            @throw-error 101 "(install-docker) This is another Linux distribution: $DISTRIBUTION"
         fi
     else
-        throw-handy-error 102 "(install-docker) Unable to determine the Linux distribution."
+        @throw-error 102 "(install-docker) Unable to determine the Linux distribution."
     fi
     sudo apt-get update
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin

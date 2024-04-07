@@ -6,32 +6,32 @@
 #
 #######
 
-function wip {
+function @wip {
     echo -e "\033[1;33mFunction in development...\033[0m"
-    confirm-next-actions
-    module-entrypoint
+    @confirm-next-actions
+    ws:module-entrypoint
 }
 
-function show-header { #TODO: replace text with vars& change text
+function @show-header { #TODO: replace text with vars& change text
     clear
-    center-text " WISENT V0.7-12/26/2023 " ".\`" "3;36"
+    @center-text " WISENT V0.7-12/26/2023 " ".\`" "3;36"
     echo -e "\033[2mWORKING MODULE:\033[0m \033[1;32m| ${GLOBAL_CURRENT_MODULE} |\033[0m"
 }
 
-function confirm-next-actions { #mb, change to confirm-next-step
+function @confirm-next-actions { #mb, change to confirm-next-step
     echo -en "To continue press \033[1;34mENTER\033[0m\033[3m (Or type - \033[1mstop\033[0m\033[3m, to return in Main Menu) \033[0m"
     read -r USER_INPUT
     
     if [ "$USER_INPUT" = "stop" ]
     then
-        module-entrypoint
+        ws:module-entrypoint
     elif [ "$USER_INPUT" != "" ]
     then
-        confirm-next-actions
+        @confirm-next-actions
     fi
 }
 
-function custom-read { #TODO: replace vars
+function @custom-read { #TODO: replace vars
     
     local -n INPUT_VAR_REFERENCE="$1"
     
@@ -44,9 +44,9 @@ function custom-read { #TODO: replace vars
         echo -e "\033[1;36mScript made by Kunitskyi Vladyslav\033[0m"
         echo -e "\033[1;36mExiting...\033[0m"
         exit 1
-    elif check-value-in-array "${GLOBAL_CURRENT_ENVIRONMENT}" "${GLOBAL_ENVIRONMENTS[@]}"
+    elif @check-value-in-array "${GLOBAL_CURRENT_ENVIRONMENT}" "${GLOBAL_ENVIRONMENTS[@]}"
     then
-        if check-value-in-array "${INPUT_VAR_REFERENCE}" "${!GLOBAL_SHORTCUTS[@]}"
+        if @check-value-in-array "${INPUT_VAR_REFERENCE}" "${!GLOBAL_SHORTCUTS[@]}"
         then
             eval "${GLOBAL_SHORTCUTS[$INPUT_VAR_REFERENCE]}"
         fi

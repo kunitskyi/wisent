@@ -9,7 +9,7 @@
 # --- Global Variable in File --- #
 # - GLOBAL_NEED_RESTART
 
-function folder-argument-logic {
+function :folder-argument-logic {
     
     local CURRENT_ARGUMENT_NAME="$1"
     local ARGUMENT_VALUE="$2"
@@ -21,16 +21,16 @@ function folder-argument-logic {
     local -n ARGUMENTS_REFERENCE="${ARGUMENTS_NAME}"
     local USER_INPUT=""
     
-    generate-folder-argument-array $ARGUMENTS_NAME $ARGUMENT_DIR $ARGUMENT_PATTERN
+    :generate-folder-argument-array $ARGUMENTS_NAME $ARGUMENT_DIR $ARGUMENT_PATTERN
     
-    if check-value-in-array "${ARGUMENT_VALUE}" "${ARGUMENTS_REFERENCE[@]}"
+    if @check-value-in-array "${ARGUMENT_VALUE}" "${ARGUMENTS_REFERENCE[@]}"
     then
         CURRENT_ARGUMENT_REFERENCE="${ARGUMENT_VALUE}"
     else
         
         GLOBAL_NEED_RESTART=1 # !!! BE AWARE GLOBAL VARIABLE HERE
         
-        show-header
+        @show-header
         echo -e "\033[1;37mSelect \033[33m${ARGUMENT_NAME}\033[37m argument:\033[0m \033[1;2;3;32m(Enter FULL name of argument)\033[0m"
         
         for ITEM in "${ARGUMENTS_REFERENCE[@]}"
@@ -38,19 +38,19 @@ function folder-argument-logic {
             echo " - ${ITEM}"
         done
         
-        custom-read USER_INPUT
+        @custom-read USER_INPUT
         
-        if check-value-in-array "$USER_INPUT" "${ARGUMENTS_REFERENCE[@]}"
+        if @check-value-in-array "$USER_INPUT" "${ARGUMENTS_REFERENCE[@]}"
         then
             CURRENT_ARGUMENT_REFERENCE="${USER_INPUT}"
         else
-            folder-argument-logic $CURRENT_ARGUMENT_NAME $ARGUMENT_VALUE $ARGUMENTS_NAME $ARGUMENT_NAME $ARGUMENT_DIR $ARGUMENT_PATTERN
+            :folder-argument-logic $CURRENT_ARGUMENT_NAME $ARGUMENT_VALUE $ARGUMENTS_NAME $ARGUMENT_NAME $ARGUMENT_DIR $ARGUMENT_PATTERN
         fi
     fi
     
 }
 
-function generate-folder-argument-array {
+function :generate-folder-argument-array {
     
     local -n REFERENCE_OF_GLOBAL_ARGUMENTS="$1"
     local ARGUMENT_DIR="$2"

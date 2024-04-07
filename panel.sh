@@ -32,4 +32,4 @@ done
 #
 #######
 
-panel-initialization $ARG_MODULE $ARG_ENVIRONMENT
+ws:initialization $ARG_MODULE $ARG_ENVIRONMENT
