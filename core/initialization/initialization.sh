@@ -27,7 +27,7 @@ function ws:change-module {
     local LOCAL_MODULE=${1:-"NONE"}
     local LOCAL_ENVIRONMENT=${2:-"NONE"}
     
-    :folder-argument-logic GLOBAL_CURRENT_MODULE $LOCAL_MODULE GLOBAL_MODULES "MODULE" "./module" "^[a-z][a-z0-9_.-]*$"
+    ws:_folder-argument-logic GLOBAL_CURRENT_MODULE $LOCAL_MODULE GLOBAL_MODULES "MODULE" "./module" "^[a-z][a-z0-9_.-]*$"
     
     if [ "$GLOBAL_CURRENT_MODULE" != "$LOCAL_MODULE" ]
     then
@@ -41,7 +41,7 @@ function ws:change-environment {
     
     local LOCAL_ENVIRONMENT=${1:-"NONE"}
     
-    :folder-argument-logic GLOBAL_CURRENT_ENVIRONMENT $LOCAL_ENVIRONMENT GLOBAL_ENVIRONMENTS  "ENVIRONMENT" "./module/${GLOBAL_CURRENT_MODULE}/.env" "^[a-z][a-z0-9_.-]*$"
+    ws:_folder-argument-logic GLOBAL_CURRENT_ENVIRONMENT $LOCAL_ENVIRONMENT GLOBAL_ENVIRONMENTS  "ENVIRONMENT" "./module/${GLOBAL_CURRENT_MODULE}/.env" "^[a-z][a-z0-9_.-]*$"
     
     ws:module-reload
 }

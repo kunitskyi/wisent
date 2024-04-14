@@ -13,7 +13,7 @@ function ws:selector-logic {
     local -n SELECTOR_ARRAY_REFERENCE="${SELECTOR_ARRAY_NAME}"
     
     @show-header
-    :show-selector $SELECTOR_ARRAY_NAME $SELECTOR_DESCRIPTION_NAME
+    ws:_show-selector $SELECTOR_ARRAY_NAME $SELECTOR_DESCRIPTION_NAME
     @custom-read USER_INPUT
     
     if [[ -n "$USER_INPUT" ]] && [[ "$USER_INPUT" =~ ^[0-9]+$ ]] && (( USER_INPUT >= 1 )) && (( USER_INPUT <= ${#SELECTOR_ARRAY_REFERENCE[@]} ))
@@ -25,7 +25,7 @@ function ws:selector-logic {
     
 }
 
-function :show-selector {
+function ws:_show-selector {
     
     if [ -z "$$1" ] || [ -z "$$2" ]
     then
@@ -40,12 +40,12 @@ function :show-selector {
     
     for ITEM in "${SELECTOR_ARRAY[@]}"
     do
-        :selector-description-parse $i $ITEM $SELECTOR_DESCRIPTION_NAME
+        ws:_selector-description-parse $i $ITEM $SELECTOR_DESCRIPTION_NAME
         ((i++))
     done
 }
 
-function :selector-description-parse {
+function ws:_selector-description-parse {
     
     local INDEX="$1"
     local ITEM="$2"

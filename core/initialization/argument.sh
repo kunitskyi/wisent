@@ -9,7 +9,7 @@
 # --- Global Variable in File --- #
 # - GLOBAL_NEED_RESTART
 
-function :folder-argument-logic {
+function ws:_folder-argument-logic {
     
     local CURRENT_ARGUMENT_NAME="$1"
     local ARGUMENT_VALUE="$2"
@@ -21,7 +21,7 @@ function :folder-argument-logic {
     local -n ARGUMENTS_REFERENCE="${ARGUMENTS_NAME}"
     local USER_INPUT=""
     
-    :generate-folder-argument-array $ARGUMENTS_NAME $ARGUMENT_DIR $ARGUMENT_PATTERN
+    ws:_generate-folder-argument-array $ARGUMENTS_NAME $ARGUMENT_DIR $ARGUMENT_PATTERN
     
     if @check-value-in-array "${ARGUMENT_VALUE}" "${ARGUMENTS_REFERENCE[@]}"
     then
@@ -44,13 +44,13 @@ function :folder-argument-logic {
         then
             CURRENT_ARGUMENT_REFERENCE="${USER_INPUT}"
         else
-            :folder-argument-logic $CURRENT_ARGUMENT_NAME $ARGUMENT_VALUE $ARGUMENTS_NAME $ARGUMENT_NAME $ARGUMENT_DIR $ARGUMENT_PATTERN
+            ws:_folder-argument-logic $CURRENT_ARGUMENT_NAME $ARGUMENT_VALUE $ARGUMENTS_NAME $ARGUMENT_NAME $ARGUMENT_DIR $ARGUMENT_PATTERN
         fi
     fi
     
 }
 
-function :generate-folder-argument-array {
+function ws:_generate-folder-argument-array {
     
     local -n REFERENCE_OF_GLOBAL_ARGUMENTS="$1"
     local ARGUMENT_DIR="$2"
