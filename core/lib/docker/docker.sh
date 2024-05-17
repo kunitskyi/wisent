@@ -23,11 +23,20 @@ function ws:docker:use-terminal {
     docker exec -it $CONTAINER_NAME bash || docker exec -t $CONTAINER_NAME sh
 }
 
-function ws:docker:send-cmd { # cmd_docker_logic
+function ws:docker:send-cmd {
     local CONTAINER_NAME="$1"
     local COMMAND="$2"
     
     docker exec -t $CONTAINER_NAME $COMMAND
+}
+
+function ws:docker:compose:send-cmd {
+    local ENV_FILE_PATH="$1"
+    local FILE_PATH="$2"
+    local SERVICE_NAME="$3"
+    local COMMAND="$4"
+    
+    docker compose --env-file $ENV_FILE_PATH -f $FILE_PATH exec -t $SERVICE_NAME $COMMAND
 }
 
 function ws:docker:compose-control {
