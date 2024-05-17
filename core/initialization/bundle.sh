@@ -6,15 +6,15 @@
 #
 #######
 
-function bundle:install {
+function ws:bundle:install {
     
-    bundle:install-docker
+    ws:bundle:install-docker
     
     sudo apt update
     sudo apt install curl git openssl
 }
 
-function bundle:install-docker {
+function ws:bundle:install-docker {
     
     for pkg in docker.io docker-doc docker-compose podman-docker containerd runc
     do
