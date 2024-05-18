@@ -18,7 +18,7 @@ function @show-header { #TODO: replace text with vars& change text
     echo -e "\033[2mWORKING MODULE:\033[0m \033[1;32m| ${GLOBAL_CURRENT_MODULE} |\033[0m"
 }
 
-function @confirm-next-actions { #mb, change to confirm-next-step
+function @stop {
     echo -en "To continue press \033[1;34mENTER\033[0m\033[3m (Or type - \033[1mstop\033[0m\033[3m, to return in Main Menu) \033[0m"
     read -r USER_INPUT
     
@@ -27,7 +27,7 @@ function @confirm-next-actions { #mb, change to confirm-next-step
         ws:module-entrypoint
     elif [ "$USER_INPUT" != "" ]
     then
-        @confirm-next-actions
+        @stop
     fi
 }
 
