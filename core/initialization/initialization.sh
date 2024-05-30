@@ -40,7 +40,7 @@ function ws:change-environment {
 
     local LOCAL_ENVIRONMENT=${1:-"NONE"}
 
-    ws:_folder-argument-logic GLOBAL_CURRENT_ENVIRONMENT $LOCAL_ENVIRONMENT GLOBAL_ENVIRONMENTS "ENVIRONMENT" "./module/${GLOBAL_CURRENT_MODULE}/.env" "^[a-z][a-z0-9_.-]*$"
+    ws:_folder-argument-logic GLOBAL_CURRENT_ENVIRONMENT $LOCAL_ENVIRONMENT GLOBAL_ENVIRONMENTS "ENVIRONMENT" "./module/${GLOBAL_CURRENT_MODULE}/environment" "^[a-z][a-z0-9_.-]*$"
 
     ws:module-reload
 }
