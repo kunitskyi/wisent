@@ -8,7 +8,7 @@
 
 function @wip {
     echo -e "\033[1;33mFunction in development...\033[0m"
-    @confirm-next-actions
+    @stop
     ws:module-entrypoint
 }
 
